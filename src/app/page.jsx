@@ -6,7 +6,11 @@ import { HERO_IMAGE } from "@/lib/api";
 import WorkoutCard from "@/components/WorkoutCard";
 import Loader from "@/components/Loader";
 
-const SORT_KEYS = { duration: "duration", calories: "caloriesBurned", rating: "rating" };
+const SORT_KEYS = {
+  duration: "duration",
+  calories: "caloriesBurned",
+  rating: "rating",
+};
 
 export default function Home() {
   const { workouts, loading, error } = useWorkouts();
@@ -19,7 +23,7 @@ export default function Home() {
       (w) =>
         !term ||
         w.name.toLowerCase().includes(term) ||
-        w.muscleGroups.some((g) => g.toLowerCase().includes(term))
+        w.muscleGroups.some((g) => g.toLowerCase().includes(term)),
     );
     const key = SORT_KEYS[sortBy];
     return [...filtered].sort((a, b) => b[key] - a[key]);
@@ -29,12 +33,15 @@ export default function Home() {
     <>
       <section className="grid items-center gap-10 py-12 md:grid-cols-2 md:py-20">
         <div>
-          <p className="mb-3 font-display text-sm uppercase tracking-[0.3em] text-accent">Workout Library</p>
+          <p className="mb-3 font-display text-sm uppercase tracking-[0.3em] text-accent">
+            Workout Library
+          </p>
           <h1 className="font-display text-5xl font-bold uppercase leading-[1.05] sm:text-6xl lg:text-7xl">
             Train with intent. Log every set.
           </h1>
           <p className="mt-5 max-w-lg text-neutral-400">
-            FitLog is a dark, no-nonsense gym companion: pick a lift, lock it into today's plan, and watch the week's work add up.
+            FitLog is a dark, no-nonsense gym companion: pick a lift, lock it
+            into today's plan, and watch the week's work add up.
           </p>
           <a
             href="#library"
@@ -44,8 +51,11 @@ export default function Home() {
           </a>
         </div>
         <div className="overflow-hidden rounded-2xl border border-line">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={workouts[0]?.image || HERO_IMAGE} alt="Athlete training" className="aspect-[4/3] size-full object-cover" />
+          <img
+            src="/banner.png"
+            alt="Athlete training"
+            className="h-auto w-full"
+          />
         </div>
       </section>
 
@@ -53,12 +63,17 @@ export default function Home() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="font-display text-4xl uppercase">The Library</h2>
-            <p className="mt-1 text-neutral-400">Twelve lifts covering every major muscle group.</p>
+            <p className="mt-1 text-neutral-400">
+              Twelve lifts covering every major muscle group.
+            </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <label className="relative">
               <span className="sr-only">Search workouts</span>
-              <Search size={16} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" />
+              <Search
+                size={16}
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500"
+              />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -78,7 +93,10 @@ export default function Home() {
                   <option value="calories">Calories</option>
                   <option value="rating">Rating</option>
                 </select>
-                <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
+                <ChevronDown
+                  size={16}
+                  className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                />
               </span>
             </label>
           </div>
@@ -87,10 +105,14 @@ export default function Home() {
         {loading && <Loader />}
         {error && <p className="py-16 text-center text-red-400">{error}</p>}
         {!loading && !error && list.length === 0 && (
-          <p className="py-16 text-center text-neutral-400">No workouts match your search.</p>
+          <p className="py-16 text-center text-neutral-400">
+            No workouts match your search.
+          </p>
         )}
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {list.map((w) => <WorkoutCard key={w.id} w={w} />)}
+          {list.map((w) => (
+            <WorkoutCard key={w.id} w={w} />
+          ))}
         </div>
       </section>
     </>
