@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FitLog — Workout Library
+
+A dark, no-nonsense gym companion. Browse a library of lifts, lock them into today's plan, save others for later, and watch your minutes and calories add up.
+
+**Live demo:** https://fit-log-ten-dun.vercel.app/
+
+## Technologies Used
+
+- **Next.js** (App Router) for routing and the UI
+- **React** for components and state (Context API)
+- **Tailwind CSS** for styling and responsive layout
+- **lucide-react** for icons
+- **next/font** (Oswald and Inter) for typography
+- **FitLog REST API** for all workout data
+- **localStorage** for persisting the plan and saved lists
+- **Vercel** for deployment
+
+## Key Features
+
+1. **Workout Library** — A responsive card grid (3 columns on desktop) showing every workout with its image, muscle-group tags, equipment, duration, calories and rating, with a loading animation while data is fetched.
+2. **Sort and Search** — Sort the list by Duration, Calories or Rating, and search by workout name or muscle group.
+3. **Workout Details** — A two-column page with a large image, key specs, step-by-step instructions, and "Add to today's plan" and "Save for later" buttons that show toast notifications and update the navbar badges.
+4. **My Plan Log** — Live Exercises, Minutes and Calories totals, Today's Plan and Saved tabs, Mark as Done, remove buttons, and a friendly empty state.
+5. **Persistent State** — The plan and saved lists survive page reloads through localStorage, and today's plan is capped at five lifts.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. (Optional) Set the API URL
+cp .env.example .env.local
+
+# 3. Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Name | Description |
+| --- | --- |
+| `NEXT_PUBLIC_API_URL` | FitLog API endpoint for all workouts. Defaults to `https://api.abcz.workers.dev/api/fitlog`. |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── layout.jsx          # Root layout, fonts, navbar, footer
+│   ├── page.jsx            # Home: hero and workout library
+│   ├── my-plan/page.jsx    # My Plan page
+│   ├── workouts/[id]/      # Workout details page
+│   └── not-found.jsx       # Custom 404 page
+├── components/             # Navbar, Footer, WorkoutCard, Loader, PlanProvider
+└── lib/                    # API helpers and data hook
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The app is deployed on Vercel. Every route (for example `/my-plan` or `/workouts/1`) works on reload, and unknown routes show the custom 404 page.
 
-## Deploy on Vercel
+1. Push the project to GitHub.
+2. Import the repository in Vercel.
+3. Add `NEXT_PUBLIC_API_URL` under Environment Variables if you use a different API.
+4. Deploy.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built as a Next.js assignment project.
