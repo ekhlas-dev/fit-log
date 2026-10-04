@@ -1,9 +1,12 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 export const HERO_IMAGE =
   "https://img.magnific.com/free-photo/portrait-anime-character-doing-fitness-exercising_23-2151666664.jpg?w=740";
 
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "https://api.abcz.workers.dev/api/fitlog";
+
 export async function getWorkouts() {
-  if (!API_URL) throw new Error("API URL missing. Set NEXT_PUBLIC_API_URL in .env.local");
+  if (!API_URL)
+    throw new Error("API URL missing. Set NEXT_PUBLIC_API_URL in .env.local");
   const res = await fetch(API_URL);
   if (!res.ok) throw new Error("Could not load workouts");
   return res.json();
